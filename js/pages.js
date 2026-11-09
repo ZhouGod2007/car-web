@@ -426,6 +426,39 @@ const Pages = {
     `;
   },
 
+    /* ========== 购买提示弹窗 ========== */
+  showBuyNotice(brandId) {
+    const brand = Storage.getBrand(brandId);
+    if (!brand) return;
+    this.closeBuyNotice();
+
+    const mask = document.createElement('div');
+    mask.className = 'buy-modal-mask';
+    mask.id = 'buy-modal';
+    mask.innerHTML = `
+      <div class="buy-modal" role="dialog" aria-modal="true">
+        <div class="buy-modal-icon">🛒</div>
+        <h3>购买提示</h3>
+        <p>${brand.name}暂未开放在线购买通道，具体的车型配置与经销商信息请以官方渠道为准。</p>
+        <div class="buy-modal-actions">
+          <a class="btn" href="${brand.officialUrl}" target="_blank" rel="noopener">前往${brand.name}官网</a>
+          <button type="button" class="btn btn-outline" onclick="Pages.closeBuyNotice()">知道了</button>
+        </div>
+      </div>
+    `;
+    mask.addEventListener('click', function (e) {
+      if (e.target === mask) Pages.closeBuyNotice();
+    });
+    document.body.appendChild(mask);
+    requestAnimationFrame(function () { mask.classList.add('show'); });
+  },
+
+  closeBuyNotice() {
+    const mask = document.getElementById('buy-modal');
+    if (!mask) return;
+    mask.classList.remove('show');
+    setTimeout(function () { mask.remove(); }, 200);
+  },
   /* ========== 工具方法 ========== */
   _truncate(text, maxLen) {
     if (!text) return '';
