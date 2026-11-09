@@ -1,0 +1,293 @@
+/* ======= 全局重置与基础样式 ======= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f5f6f8;
+  color: #222;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main { flex: 1; padding: 24px; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+a:hover { color: #1a73e8; }
+
+/* ======= 顶部导航 ======= */
+.navbar {
+  background: linear-gradient(135deg, #1a2a6c, #2a4f8f);
+  color: #fff;
+  padding: 14px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; gap: 28px;
+}
+.logo { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { opacity: .85; font-size: 15px; transition: opacity .2s; }
+.nav-links a:hover { opacity: 1; color: #fff; }
+.search-box { margin-left: auto; display: flex; gap: 6px; }
+.search-box input {
+  padding: 7px 12px; border-radius: 20px; border: none;
+  width: 240px; outline: none; font-size: 14px;
+}
+.search-box button {
+  padding: 7px 16px; border-radius: 20px; border: none;
+  background: #ffc107; color: #333; font-weight: 600; cursor: pointer;
+}
+.search-box button:hover { background: #ffb300; }
+
+/* ======= 通用组件 ======= */
+.card {
+  background: #fff; border-radius: 12px; overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06); transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+
+.btn {
+  display: inline-block; padding: 8px 20px; border-radius: 6px;
+  background: #1a73e8; color: #fff; font-size: 14px; cursor: pointer;
+  border: none; transition: background .2s;
+}
+.btn:hover { background: #1557b0; color: #fff; }
+.btn-outline {
+  background: #fff; color: #1a73e8; border: 1px solid #1a73e8;
+}
+.btn-outline:hover { background: #e8f0fe; color: #1a73e8; }
+
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 12px;
+  background: #eef2ff; color: #4f46e5; font-size: 12px; margin-right: 6px;
+}
+
+/* ======= 图片盒子通用（brand-icon / model-icon / big-icon 共用） ======= */
+.brand-icon,
+.model-icon,
+.big-icon {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+}
+/* 图片撑满盒子，裁剪适应形状 */
+.brand-icon img,
+.model-icon img,
+.big-icon img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* 品牌大图/车型大图用 contain，保持完整不裁剪 */
+.brand-logo-big img,
+.model-img-big img { object-fit: contain; padding: 8px; }
+
+/* 车标一律 contain 完整显示（竖版带文字的车标不被裁剪） */
+.brand-icon img { object-fit: contain; padding: 10px; background: #fff; }
+
+/* emoji 兜底：img 加载失败时显示（pages.js 里用内联 style 控制） */
+.img-fallback { font-size: inherit; line-height: 1; }
+
+/* ======= 首页 Hero 区 ======= */
+.hero {
+  background: linear-gradient(135deg, #1a2a6c, #2a4f8f, #000);
+  color: #fff; border-radius: 16px; padding: 60px 40px;
+  margin-bottom: 40px; text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+.hero h1 { font-size: 36px; margin-bottom: 12px; }
+.hero p { font-size: 16px; opacity: .85; max-width: 600px; margin: 0 auto 28px; }
+
+.section-title {
+  font-size: 22px; font-weight: 700; margin-bottom: 18px;
+  border-left: 4px solid #1a73e8; padding-left: 12px;
+}
+
+/* ======= 首页-品牌卡片网格 ======= */
+.brand-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+.brand-card { display: block; }
+.brand-card .brand-icon {
+  height: 140px;
+}
+.brand-card .brand-icon .img-fallback { font-size: 48px; }
+.brand-card .brand-info { padding: 16px; }
+.brand-card .brand-info h3 { font-size: 18px; margin-bottom: 6px; }
+.brand-card .brand-info .brand-meta { font-size: 13px; color: #666; margin-bottom: 8px; }
+.brand-card .brand-info .brand-desc { font-size: 13px; color: #555; line-height: 1.5; }
+
+/* ======= 品牌列表页筛选 ======= */
+.filter-bar {
+  background: #fff; border-radius: 12px; padding: 18px; margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+}
+.filter-bar label { font-size: 13px; color: #666; margin-right: 4px; }
+.filter-bar select {
+  padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;
+  background: #fff; cursor: pointer;
+}
+.filter-bar .filter-group { display: flex; align-items: center; gap: 6px; }
+
+/* ======= 品牌详情页 ======= */
+.breadcrumb { font-size: 13px; color: #666; margin-bottom: 16px; }
+.breadcrumb a { color: #1a73e8; }
+
+.brand-header {
+  background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; gap: 28px; align-items: center;
+}
+.brand-header .big-icon {
+  width: 120px; height: 120px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.brand-header .big-icon .img-fallback { font-size: 56px; }
+.brand-header .brand-title { flex: 1; }
+.brand-header h1 { font-size: 28px; margin-bottom: 8px; }
+.brand-header .meta-row { color: #666; font-size: 14px; }
+.brand-header .meta-row span { margin-right: 16px; }
+
+.info-section {
+  background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+.info-section h2 {
+  font-size: 18px; margin-bottom: 12px;
+  border-bottom: 2px solid #eef2ff; padding-bottom: 8px;
+}
+.info-section p { font-size: 14px; color: #444; margin-bottom: 10px; }
+.info-section ul { padding-left: 20px; }
+.info-section li { font-size: 14px; color: #444; margin-bottom: 6px; }
+
+/* 品牌页下的车型列表 */
+.model-list {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.model-card { padding: 14px; display: block; }
+.model-card .model-icon {
+  height: 130px; border-radius: 8px; margin-bottom: 10px;
+}
+.model-card .model-icon .img-fallback { font-size: 40px; }
+.model-card h4 { font-size: 16px; margin-bottom: 4px; }
+.model-card .model-meta { font-size: 12px; color: #888; }
+
+/* ======= 车型详情页 ======= */
+.model-header {
+  background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; gap: 28px; align-items: center;
+}
+.model-header .big-icon {
+  width: 220px; height: 160px; border-radius: 12px;
+  flex-shrink: 0;
+}
+.model-header .big-icon .img-fallback { font-size: 72px; }
+.model-header .model-title h1 { font-size: 26px; margin-bottom: 8px; }
+.model-header .model-title .meta-row { color: #666; font-size: 14px; margin-bottom: 12px; }
+
+.spec-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.spec-item {
+  background: #f8fafc; border-radius: 8px; padding: 12px 14px;
+}
+.spec-item .spec-label { font-size: 12px; color: #888; margin-bottom: 2px; }
+.spec-item .spec-value { font-size: 14px; color: #222; font-weight: 500; }
+
+/* ======= 空状态 ======= */
+.empty {
+  text-align: center; padding: 60px 20px; color: #888;
+}
+.empty .empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+/* ======= 页脚 ======= */
+.footer {
+  text-align: center; padding: 20px; color: #999; font-size: 13px;
+  border-top: 1px solid #eee;
+}
+
+/* ======= StarBorder 流光描边按钮 ======= */
+.star-border-wrap {
+  --sb-color: #ffffff;
+  --sb-duration: 4s;
+  --sb-glow: 0.6;
+  position: relative;
+  display: inline-block;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 1px;
+  background: #0a0a0a;
+  cursor: pointer;
+  isolation: isolate;
+  vertical-align: middle;
+  transition: box-shadow .35s ease;
+}
+.star-border-wrap:hover {
+  box-shadow: 0 0 22px rgba(255, 255, 255, calc(var(--sb-glow) * .75));
+}
+.star-border-wrap:active {
+  animation: sb-click-pulse .5s ease-out;
+}
+
+/* 上下两道光带（星轨） */
+.star-border-trail {
+  position: absolute;
+  width: 300%;
+  height: 50%;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .7;
+  background: radial-gradient(circle at center, var(--sb-color), transparent 70%);
+  filter: blur(4px);
+}
+.star-border-trail.bottom {
+  bottom: -11px;
+  right: -250%;
+  animation: sb-move-bottom var(--sb-duration) linear infinite alternate;
+}
+.star-border-trail.top {
+  top: -10px;
+  left: -250%;
+  animation: sb-move-top var(--sb-duration) linear infinite alternate;
+}
+
+@keyframes sb-move-bottom {
+  0%   { transform: translate(0, 0);      opacity: 1; }
+  100% { transform: translate(-100%, 0);  opacity: 0; }
+}
+@keyframes sb-move-top {
+  0%   { transform: translate(0, 0);     opacity: 1; }
+  100% { transform: translate(100%, 0);  opacity: 0; }
+}
+@keyframes sb-click-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 255, 255, .55); }
+  100% { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0); }
+}
+
+/* 内部按钮主体 */
+.star-border-inner {
+  position: relative;
+  z-index: 1;
+  display: block;
+  border: 1px solid #222;
+  border-radius: 12px;
+  background: #000;
+  color: #fff;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-align: center;
+  transition: background .2s ease, color .2s ease;
+}
+.star-border-wrap:hover .star-border-inner { background: #111; color: #fff; }
