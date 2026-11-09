@@ -229,14 +229,22 @@ const Pages = {
             <span>🏛️ ${brand.group || '—'}</span>
           </div>
           ${brand.slogan ? `<div style="margin-top:8px;font-style:italic;color:#555;">"${brand.slogan}"</div>` : ''}
-          ${brand.officialUrl ? `
+            ${brand.officialUrl ? `
             <div style="margin-top:14px;">
-              <a class="star-border-wrap" href="${brand.officialUrl}" target="_blank" rel="noopener"
-                 style="--sb-color:#ffffff;--sb-duration:4s;--sb-glow:0.6;">
-                <span class="star-border-trail top"></span>
-                <span class="star-border-trail bottom"></span>
-                <span class="star-border-inner">🛒 点击购买</span>
-              </a>
+              ${brand.buyMode === 'notice'
+                ? `<button type="button" class="star-border-wrap"
+                     style="--sb-color:#ffffff;--sb-duration:4s;--sb-glow:0.6;"
+                     onclick="Pages.showBuyNotice('${brand.id}')">
+                     <span class="star-border-trail top"></span>
+                     <span class="star-border-trail bottom"></span>
+                     <span class="star-border-inner">🛒 点击购买</span>
+                   </button>`
+                : `<a class="star-border-wrap" href="${brand.officialUrl}" target="_blank" rel="noopener"
+                     style="--sb-color:#ffffff;--sb-duration:4s;--sb-glow:0.6;">
+                     <span class="star-border-trail top"></span>
+                     <span class="star-border-trail bottom"></span>
+                     <span class="star-border-inner">🛒 点击购买</span>
+                   </a>`}
             </div>` : ''}
         </div>
       </div>
