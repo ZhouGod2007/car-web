@@ -441,7 +441,7 @@ const SEED_BRANDS = [
       },
       {
         id: 'viper',
-        name: 'Viper',
+        name: 'viper',
         chineseName: '蝰蛇',
         yearStart: 1992,
         yearEnd: 2017,
