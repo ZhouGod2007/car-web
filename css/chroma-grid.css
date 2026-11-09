@@ -1,0 +1,117 @@
+/* ============================================
+   Chroma Grid —— 聚光灯光效图片网格
+   默认灰度，鼠标靠近时恢复颜色 + 光晕
+   ============================================ */
+
+.chroma-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 900px) { .chroma-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .chroma-grid { grid-template-columns: 1fr; } }
+
+/* 单个卡片 */
+.chroma-card {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  isolation: isolate;
+}
+
+/* 图片层 */
+.chroma-card .chroma-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: filter 0.35s ease, transform 0.5s ease;
+  will-change: filter;
+}
+
+/* emoji 兜底层 */
+.chroma-card .chroma-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 72px;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  color: #94a3b8;
+  transition: filter 0.35s ease;
+}
+
+/* 信息层（底部覆盖） */
+.chroma-card .chroma-info {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 16px 18px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.75));
+  color: #fff;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+.chroma-card .chroma-info h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.chroma-card .chroma-info p {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* 底部装饰 accent 色条 */
+.chroma-card .chroma-accent {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 4px;
+  opacity: 0.8;
+  z-index: 2;
+}
+
+/* 边框光晕 */
+.chroma-card .chroma-border-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  pointer-events: none;
+  border: 2px solid transparent;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0);
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+  z-index: 3;
+}
+
+/* 最外层光晕（hover 到时从 accent 色发出） */
+.chroma-card .chroma-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 30px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 1;
+  filter: blur(20px);
+}
+
+/* 默认滤镜 —— 灰度 + 变暗 */
+.chroma-card.has-image .chroma-image {
+  filter: grayscale(1) brightness(0.4);
+}
+.chroma-card.has-image {
+  background: #1a1a1a;
+}
+
+/* 没图的卡片不做灰度 */
+.chroma-card.no-image .chroma-fallback {
+  filter: brightness(0.85);
+}

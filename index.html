@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>汽车知识站</title>
+  <meta name="description" content="本地运行的汽车品牌知识站：品牌历史、标志设计、车型发展。不卖车，不联网。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chroma-grid.css">
+</head>
+<body>
+
+  <!-- 顶部导航 -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <a class="logo" href="#/">🚗 汽车知识站</a>
+      <nav class="nav-links">
+        <a href="#/">首页</a>
+        <a href="#/brands">品牌列表</a>
+      </nav>
+      <div class="search-box">
+        <input id="search-input" type="search" placeholder="搜索品牌或车型…" autocomplete="off">
+        <button id="search-btn" type="button">搜索</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 页面内容（由 JS 渲染） -->
+  <main id="app"></main>
+
+  <footer class="footer">
+    汽车知识站 · 数据保存在本机浏览器 · 仅供学习交流
+  </footer>
+
+  <!-- 加载顺序：数据 → 存储 → 路由 → 页面 → 主入口 -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/chroma-grid.js"></script>
+  <script src="js/pages.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
